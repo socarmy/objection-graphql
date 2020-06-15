@@ -864,16 +864,16 @@ describe('integration tests', () => {
         .build();
     });
 
-    it('root should have `totalCount` field', () => graphql(schema, '{ people { collection { firstName }, totalCount } }').then((res) => {
+    it('root should have `totalCount` field', () => graphql(schema, '{ people { data { firstName }, totalCount } }').then((res) => {
       const { data: { people: { totalCount } } } = res;
       expect(totalCount).to.eql(4);
     }));
 
-    it('root should have `people` field', () => graphql(schema, '{ people { collection { firstName } }}').then((res) => {
-      const { data: { people: { collection } } } = res;
-      collection.sort(sortByFirstName);
+    it('root should have `people` field', () => graphql(schema, '{ people { data { firstName } }}').then((res) => {
+      const { data: { people: { data } } } = res;
+      data.sort(sortByFirstName);
 
-      expect(collection).to.eql([
+      expect(data).to.eql([
         {
           firstName: 'Arnold',
         },
